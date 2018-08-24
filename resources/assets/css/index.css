@@ -1,0 +1,36 @@
+.vkBotTable {
+    overflow: auto;
+}
+
+.addGroup {
+    padding: 2%;
+}
+
+.defaultInput {
+    padding: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.action > i {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.action > .delete {
+    color: #ff3333;
+}
+
+.moderation > i {
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.moderation > .cross {
+    color: #ff3333;
+}
+
+.moderation > .check {
+    color: green;
+}

@@ -1,0 +1,95 @@
+.popup {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(250, 250, 250, 0.7);
+    background: rgba(117, 117, 117, 0.7);
+    z-index: 999999;
+}
+
+.popup-panel {
+    background: #ffffff none repeat scroll 0 0;
+    margin: 100px auto;
+    padding: 10px;
+    border: 0 solid #e7e7e7;
+    border-radius: 5px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2 ;
+}
+
+.popup-header {
+    position: relative;
+    padding: 8px 9px 0 9px;
+    height: 30px;
+    color: #455a64;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 20px;
+    font-weight: 400;
+    /*background: #4c78ab;*/
+    //background: linear-gradient(to right, grey 0%, grey 50%, grey 100%);
+    border-radius: 3px 3px 0 0;
+    /*-webkit-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    -moz-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    font-family: Roboto, "Open Sans", sanf-serif, helvetica, tahoma, verdana !important;*/
+}
+.popup-header .left {
+    float: left;
+}
+.popup-header .right {
+    float: right;
+}
+
+.popup-content {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.popup-footer {
+    position: relative;
+    padding: 8px;
+}
+
+.popup-close{
+    position:  absolute;
+    top: 0px;
+    right: 0px;
+    width: 20px;
+    height: 20px;
+
+    cursor: pointer;
+}
+.popup-close:after, .popup-close:before {
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 0;
+    border-top: 1px solid #455a64;
+    left: 50%;
+    top: 50%;
+    transition: 0.2s ease-in;
+}
+.popup-close:after{
+    transform: translate(-50%,-50%) rotate(45deg);
+}
+
+.popup-close:before{
+    transform: translate(-50%,-50%) rotate(-45deg);
+}
+.popup-close:hover:after, .popup-close:hover:before{
+    border-top: 1px solid rgba(0,0,0,0.5);
+}
+
+

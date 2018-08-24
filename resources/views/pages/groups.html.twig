@@ -1,0 +1,55 @@
+{% extends '_layout.html.twig' %}
+
+{% block title %}Groups | run.project{% endblock %}
+
+{% block content %}
+    <div id="app" class="container">
+        <div class="row addGroup">
+            <button class="btn btn-default" @click="parsePosts()">Parse posts</button>
+            <br><br>
+            <input type="text" class="defaultInput" v-model="addGroupForm.ownerId" placeholder="Owner id">
+            <input type="text" class="defaultInput" v-model="addGroupForm.url" placeholder="Url">
+            <input type="text" class="defaultInput" v-model="addGroupForm.name" placeholder="Name">
+            <input type="text" class="defaultInput" v-model="addGroupForm.tag" placeholder="Hashtag">
+            <button @click="addGroup()" @keyup.enter="addGroup()" class="btn btn-default">add</button>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="vkBotTable">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Url</th>
+                            <th>Hashtag</th>
+                            <th>Owner id</th>
+                            <th>St</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(group, i) in groups">
+                            <td>${group.id}</td>
+                            <td>${group.name}</td>
+                            <td>
+                                <a :href="group.url" target="_blank">${group.url}</a>
+                            </td>
+                            <td>${group.tag}</td>
+                            <td>${group.owner_id}</td>
+                            <td>${group.st}</td>
+                            <td class="action">
+                                <i class="fas fa-trash-alt delete" @click="deleteGroup(group)"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="/me/resources/assets/js/pages/groups.js?{{ hash }}"></script>
+{% endblock %}

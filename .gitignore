@@ -1,0 +1,6 @@
+/repo/*
+/repo/
+/repo/Config.php
+/vendor/
+composer.phar
+composer.lock

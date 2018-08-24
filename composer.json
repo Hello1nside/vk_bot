@@ -1,0 +1,20 @@
+{
+  "name": "root/run.project",
+  "description": "foundation for projects",
+  "authors": [
+    {
+      "name": "Ivzhenko Volodymyr",
+      "email": "ivzhen4@gmail.com"
+    }
+  ],
+  "require": {
+    "klein/klein": "^2.1",
+    "catfan/Medoo": "*",
+    "twig/twig": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "": "./"
+    }
+  }
+}
