@@ -90,7 +90,7 @@ class Route
         $this->klein->respond('GET', '/me/api/upload-photo', function ($request, $response, $service) {
             $postController = new PostsController();
             $result = $postController->uploadPhoto();
-            $response->json(['success' => $result ? true:false]);
+            $response->json($result);
         });
 	}
 }

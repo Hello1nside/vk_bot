@@ -15,7 +15,7 @@ use app\model\PostImagesModel;
 Class PostsController
 {
     private $access_token = '';
-
+    private $group_id = 26350528;
     private $version = '5.80';
 
     public function getPosts($param)
@@ -99,17 +99,20 @@ Class PostsController
             $param['group_id'] = $groupsId;
         }
 
-        $post = $this->getPosts($param);
+        $post = $this->getPosts($param)[0];
+        $text = $post['text'];
 
-        $text = $post[0]['text'];
-        $photoID = 'photo' . $post[0]['owner_id_group'] . '_' . $post[0]['images'][0]['id_image']; // . $post[''];
-        $id = $post[0]['id'];
+        $saveWallPhoto = $this->uploadPhoto($post['images'][0]['img_url'])[0];
 
+        $photoID = 'photo' . $saveWallPhoto['owner_id'] . '_' . $saveWallPhoto['id'];
+//        $photoID = 'photo' . $post[0]['owner_id_group'] . '_' . $post[0]['images'][0]['id_image']; // . $post[''];
+
+        $id = $post['id'];
         $group = $this->getGroups([
-            'id' => $post[0]['group_id']
-        ])[$post[0]['group_id']];
+            'id' => $post['group_id']
+        ])[$post['group_id']];
 
-        if (isset($post['images'][0]['id_image'])) return false;
+        if (isset($post['images']['id_image'])) return false;
 
         $text = $group['tag'] . "\n" . $text;
         $request_params = [
@@ -267,13 +270,58 @@ Class PostsController
         return $data;
     }
 
-    public function uploadPhoto() {
+    public function getWallUploadServer()
+    {
+        $request_params = [
+            'group_id' => $this->group_id,
+            'v' => $this->version,
+            'access_token' => $this->access_token
+        ];
 
-        return true;
+        $get_params = http_build_query($request_params);
+        $dataLink = 'https://api.vk.com/method/photos.getWallUploadServer?' . $get_params;
+
+        return json_decode(file_get_contents($dataLink));
     }
 
-    function testUploadPhoto()
-    {
+    public function uploadPhoto($img_url) {
+        $result = $this->getWallUploadServer();
+        $file = '/srv/www/mudrahel.com/me/storage/upload/default.jpg';
 
+        //$file = array("photo" => new \CURLFile(dirname(__FILE__)."/1.jpg"));
+
+        $imgContent = file_get_contents($img_url);
+        $success = file_put_contents($file, $imgContent);
+
+        if (!$success) return false;
+
+        $file = [
+            'photo' => new \CURLFile($file)
+        ];
+
+        //$data = array("photo"=>"@".file_get_contents('https://sun9-8.userapi.com/c543103/v543103564/4c0a5/p5-q5Ro3wwE.jpg'));
+        $upload_url = $result->response->upload_url;
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $upload_url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_SAFE_UPLOAD, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $file);
+
+        $result = json_decode(curl_exec($ch),true);
+
+        $request_params = [
+            'group_id' => $this->group_id,
+            'server' => $result['server'],
+            'photo' => $result['photo'],
+            'hash' => $result['hash'],
+            'v' => $this->version,
+            'access_token' => $this->access_token
+        ];
+
+        $post_params = http_build_query($request_params);
+        $resultUpload = json_decode(file_get_contents('https://api.vk.com/method/photos.saveWallPhoto?'. $post_params),true);
+        return $resultUpload['response'];
     }
 }

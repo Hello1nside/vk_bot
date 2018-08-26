@@ -135,21 +135,33 @@ class __TwigTemplate_9f39a1ad14b2a2d80056e6c1c055b9d937aac277cf9877bf9e1be8ce9f5
                 <img :src=\"popupImgSrc\" style=\"max-height: 550px\">
             </div>
         </popup>
+
+        <div id=\"scrollToTop\" onclick=\"goUp();\"><i class=\"fas fa-arrow-circle-up\"></i></div>
     </div>
 ";
     }
 
-    // line 94
+    // line 96
     public function block_script($context, array $blocks = array())
     {
-        // line 95
+        // line 97
         echo "    <script src=\"/me/resources/assets/js/components/popup.js?";
         echo twig_escape_filter($this->env, ($context["hash"] ?? null), "html", null, true);
         echo "\"></script>
     <script src=\"/me/resources/assets/js/pages/posts.js?";
-        // line 96
+        // line 98
         echo twig_escape_filter($this->env, ($context["hash"] ?? null), "html", null, true);
         echo "\"></script>
+    <script>
+        let timeOut;
+        function goUp() {
+            let top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
+            if(top > 0) {
+                window.scrollBy(0,-100);
+                timeOut = setTimeout('goUp()',20);
+            } else clearTimeout(timeOut);
+        }
+    </script>
 ";
     }
 
@@ -165,7 +177,7 @@ class __TwigTemplate_9f39a1ad14b2a2d80056e6c1c055b9d937aac277cf9877bf9e1be8ce9f5
 
     public function getDebugInfo()
     {
-        return array (  151 => 96,  146 => 95,  143 => 94,  58 => 11,  55 => 10,  49 => 7,  43 => 5,  38 => 4,  35 => 3,  15 => 1,);
+        return array (  153 => 98,  148 => 97,  145 => 96,  58 => 11,  55 => 10,  49 => 7,  43 => 5,  38 => 4,  35 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -260,12 +272,24 @@ class __TwigTemplate_9f39a1ad14b2a2d80056e6c1c055b9d937aac277cf9877bf9e1be8ce9f5
                 <img :src=\"popupImgSrc\" style=\"max-height: 550px\">
             </div>
         </popup>
+
+        <div id=\"scrollToTop\" onclick=\"goUp();\"><i class=\"fas fa-arrow-circle-up\"></i></div>
     </div>
 {% endblock %}
 
 {% block script %}
     <script src=\"/me/resources/assets/js/components/popup.js?{{ hash }}\"></script>
     <script src=\"/me/resources/assets/js/pages/posts.js?{{ hash }}\"></script>
+    <script>
+        let timeOut;
+        function goUp() {
+            let top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
+            if(top > 0) {
+                window.scrollBy(0,-100);
+                timeOut = setTimeout('goUp()',20);
+            } else clearTimeout(timeOut);
+        }
+    </script>
 {% endblock %}", "@pages/posts.html.twig", "/srv/www/mudrahel.com/me/resources/views/pages/posts.html.twig");
     }
 }

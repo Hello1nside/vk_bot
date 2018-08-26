@@ -88,10 +88,22 @@
                 <img :src="popupImgSrc" style="max-height: 550px">
             </div>
         </popup>
+
+        <div id="scrollToTop" onclick="goUp();"><i class="fas fa-arrow-circle-up"></i></div>
     </div>
 {% endblock %}
 
 {% block script %}
     <script src="/me/resources/assets/js/components/popup.js?{{ hash }}"></script>
     <script src="/me/resources/assets/js/pages/posts.js?{{ hash }}"></script>
+    <script>
+        let timeOut;
+        function goUp() {
+            let top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
+            if(top > 0) {
+                window.scrollBy(0,-100);
+                timeOut = setTimeout('goUp()',20);
+            } else clearTimeout(timeOut);
+        }
+    </script>
 {% endblock %}
