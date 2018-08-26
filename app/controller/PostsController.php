@@ -262,7 +262,7 @@ Class PostsController
                     $this->addPostImg([
                         'id_image' => $id_image,
                         'id_post' => $post_id,
-                        'img_url' => $val->url
+                        'img_url' => $val
                     ]);
                 }
             }
